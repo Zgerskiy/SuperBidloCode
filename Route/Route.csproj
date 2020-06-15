@@ -138,6 +138,7 @@
     <EmbeddedResource Include="Forms\ShopsForm.resx">
       <DependentUpon>ShopsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="MilkWork.bak" />
     <None Include="MilkWorkDataSet.xsc">
       <DependentUpon>MilkWorkDataSet.xsd</DependentUpon>
     </None>
