@@ -1,0 +1,147 @@
+﻿CREATE DATABASE MilkWork
+
+GO 
+
+USE MilkWork
+
+CREATE TABLE Mark
+(
+Id_mark INT PRIMARY KEY IDENTITY(1,1),
+Mark_name NVARCHAR(200) UNIQUE NOT NULL
+)
+
+CREATE TABLE Car_type
+(
+Id_car_type INT PRIMARY KEY IDENTITY(1,1),
+Car_type_name NVARCHAR(200) UNIQUE NOT NULL
+);
+
+GO
+
+CREATE TABLE Car(
+Id_car INT PRIMARY KEY IDENTITY(1,1),
+Id_car_type INT,
+Id_mark INT,
+Car_number NVARCHAR(7) UNIQUE NOT NULL,
+FOREIGN KEY (Id_car_type) REFERENCES Car_type(Id_car_type) ON DELETE SET NULL,
+FOREIGN KEY (Id_mark) REFERENCES Mark(Id_mark) ON DELETE SET NULL
+);
+
+CREATE TABLE [Route] (
+Id_route INT PRIMARY KEY IDENTITY(1,1),
+Route_name NVARCHAR(200) NOT NULL,
+Route_date DATE NOT NULL,
+Route_distance FLOAT NOT NULL
+);
+
+CREATE TABLE Product_type(
+Id_product_type INT PRIMARY KEY IDENTITY(1,1),
+Product_type_name NVARCHAR(200) UNIQUE NOT NULL
+);
+
+CREATE TABLE Unit(
+Id_unit INT PRIMARY KEY IDENTITY(1,1),
+Unit_name NVARCHAR(100) UNIQUE NOT NULL
+);
+
+GO
+
+CREATE TABLE Product(
+Id_product INT PRIMARY KEY IDENTITY(1,1),
+Product_name NVARCHAR(200) NOT NULL,
+Id_product_type INT,
+Id_unit INT NOT NULL,
+FOREIGN  KEY (Id_product_type) REFERENCES Product_type(Id_product_type) ON DELETE SET NULL,
+FOREIGN  KEY (Id_unit) REFERENCES Unit(Id_unit) ON DELETE CASCADE
+);
+
+CREATE TABLE Region(
+Id_region INT PRIMARY KEY IDENTITY(1,1),
+Region_name NVARCHAR(200) UNIQUE NOT NULL
+);
+
+GO
+
+CREATE TABLE Area(
+Id_area INT PRIMARY KEY IDENTITY(1,1),
+Area_name NVARCHAR(200) NOT NULL,
+Id_region INT NOT NULL,
+FOREIGN KEY (Id_region) REFERENCES Region(Id_region) ON DELETE CASCADE
+);
+
+GO 
+
+CREATE TABLE Locality_type(
+Id_locality_type INT PRIMARY KEY IDENTITY(1,1),
+Locality_type_name NVARCHAR(200) UNIQUE NOT NULL
+)
+
+GO
+
+CREATE TABLE Locality(
+Id_locality INT PRIMARY KEY IDENTITY(1,1),
+Locality_name NVARCHAR(200) NOT NULL,
+Id_area INT NOT NULL,
+Id_locality_type INT,
+FOREIGN KEY (Id_area) REFERENCES Area(Id_area) ON DELETE CASCADE,
+FOREIGN KEY (Id_locality_type) REFERENCES Locality_type(Id_locality_type) ON DELETE SET NULL
+);
+
+GO
+
+CREATE TABLE Street(
+Id_street INT PRIMARY KEY IDENTITY(1,1),
+Street_name NVARCHAR(200) NOT NULL,
+Id_locality INT NOT NULL,
+FOREIGN KEY (Id_locality) REFERENCES Locality(Id_locality) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE Shop(
+Id_shop INT PRIMARY KEY IDENTITY(1,1),
+Shop_name NVARCHAR(200) NOT NULL,
+Shop_x_coord FLOAT NOT NULL,
+Shop_y_coord FLOAT NOT NULL,
+Id_street INT NOT NULL,
+FOREIGN KEY (Id_street) REFERENCES Street(Id_street) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE Route_struct(
+Id_route_struct INT PRIMARY KEY IDENTITY(1,1),
+Id_shop INT NOT NULL,
+Id_route INT NOT NULL,
+Id_car INT NOT NULL,
+FOREIGN KEY (Id_shop) REFERENCES Shop(Id_shop) ON DELETE CASCADE,
+FOREIGN KEY (Id_route) REFERENCES [Route](Id_route) ON DELETE CASCADE,
+FOREIGN KEY (Id_car) REFERENCES Car(Id_car) ON DELETE CASCADE
+);
+
+GO 
+
+CREATE TABLE Shop_request(
+Id_shop_request INT PRIMARY KEY IDENTITY(1,1),
+Date_of_request DATE NOT NULL,
+Id_shop INT NOT NULL,
+FOREIGN KEY (Id_shop) REFERENCES Shop(Id_shop) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE Request_struct(
+Id_shop_struct INT PRIMARY KEY IDENTITY(1,1),
+Id_product INT NOT NULL,
+Id_shop_request INT NOT NULL,
+Product_count FLOAT NOT NULL,
+FOREIGN KEY (Id_product) REFERENCES Product(Id_product) ON DELETE CASCADE,
+FOREIGN KEY (Id_shop_request) REFERENCES Shop_request(Id_shop_request) ON DELETE CASCADE
+);
+
+
+
+
+
+
+
