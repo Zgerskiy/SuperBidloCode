@@ -6873,13 +6873,9 @@ namespace Route {
                 base.Columns.Add(this.columnFull_car_name);
                 this.columnCar_number.AllowDBNull = false;
                 this.columnCar_number.MaxLength = 7;
-                this.columnId_car.AllowDBNull = false;
-                this.columnCar_type_name.AllowDBNull = false;
                 this.columnCar_type_name.MaxLength = 200;
-                this.columnMark_name.AllowDBNull = false;
                 this.columnMark_name.MaxLength = 200;
                 this.columnId_mark.AllowDBNull = false;
-                this.columnModel_name.AllowDBNull = false;
                 this.columnModel_name.MaxLength = 200;
                 this.columnFull_car_name.ReadOnly = true;
                 this.columnFull_car_name.MaxLength = 409;
@@ -10180,7 +10176,12 @@ namespace Route {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int Id_car {
                 get {
-                    return ((int)(this[this.tableCarView.Id_carColumn]));
+                    try {
+                        return ((int)(this[this.tableCarView.Id_carColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Id_car\' в таблице \'CarView\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCarView.Id_carColumn] = value;
@@ -10191,7 +10192,12 @@ namespace Route {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Car_type_name {
                 get {
-                    return ((string)(this[this.tableCarView.Car_type_nameColumn]));
+                    try {
+                        return ((string)(this[this.tableCarView.Car_type_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Car_type_name\' в таблице \'CarView\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCarView.Car_type_nameColumn] = value;
@@ -10202,7 +10208,12 @@ namespace Route {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Mark_name {
                 get {
-                    return ((string)(this[this.tableCarView.Mark_nameColumn]));
+                    try {
+                        return ((string)(this[this.tableCarView.Mark_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Mark_name\' в таблице \'CarView\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCarView.Mark_nameColumn] = value;
@@ -10256,7 +10267,12 @@ namespace Route {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Model_name {
                 get {
-                    return ((string)(this[this.tableCarView.Model_nameColumn]));
+                    try {
+                        return ((string)(this[this.tableCarView.Model_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Model_name\' в таблице \'CarView\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCarView.Model_nameColumn] = value;
@@ -10281,6 +10297,42 @@ namespace Route {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsId_carNull() {
+                return this.IsNull(this.tableCarView.Id_carColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetId_carNull() {
+                this[this.tableCarView.Id_carColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCar_type_nameNull() {
+                return this.IsNull(this.tableCarView.Car_type_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCar_type_nameNull() {
+                this[this.tableCarView.Car_type_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMark_nameNull() {
+                return this.IsNull(this.tableCarView.Mark_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMark_nameNull() {
+                this[this.tableCarView.Mark_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsId_car_typeNull() {
                 return this.IsNull(this.tableCarView.Id_car_typeColumn);
             }
@@ -10301,6 +10353,18 @@ namespace Route {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetId_modelNull() {
                 this[this.tableCarView.Id_modelColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsModel_nameNull() {
+                return this.IsNull(this.tableCarView.Model_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetModel_nameNull() {
+                this[this.tableCarView.Model_nameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

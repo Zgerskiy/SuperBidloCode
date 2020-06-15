@@ -1,5 +1,6 @@
 ﻿using DevExpress.Map;
 using DevExpress.XtraMap;
+using Route.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,38 +47,41 @@ namespace Route
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            if (shopViewBindingSource.Count != 0)
+            BSHandler.Handle(this, shopViewBindingSource, () =>
             {
                 shopInfoGroupBox.Enabled = true;
-            }
+            });
+           
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (shopViewBindingSource.Count!=0)
+            BSHandler.Handle(this, shopViewBindingSource, () =>
             {
                 shopViewBindingSource.RemoveCurrent();
                 shopViewTableAdapter.Update(milkWorkDataSet.ShopView);
-            }
+            });
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (ShopLocation is null)
+            AddingHandler.Handle(this, () =>
             {
-                MessageBox.Show(this, "Необходимо указать месторасположение магазина", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-            (shopViewBindingSource.Current as DataRowView)["Shop_x_coord"] = ShopLocation.GetX();
-            (shopViewBindingSource.Current as DataRowView)["Shop_y_coord"] = ShopLocation.GetY();
-            shopViewBindingSource.EndEdit();
-            shopViewTableAdapter.Update(milkWorkDataSet.ShopView);
-            shopViewTableAdapter.Fill(milkWorkDataSet.ShopView);
-            shopInfoGroupBox.Enabled = false;
+                if (ShopLocation is null)
+                {
+                    MessageBox.Show(this, "Необходимо указать месторасположение магазина", "Ошибка", MessageBoxButtons.OK);
+                    return;
+                }
 
-            ShopLocation = null;
-            ClearPushPins();
-            mapControl1.Update();
+                (shopViewBindingSource.Current as DataRowView)["Shop_x_coord"] = ShopLocation.GetX();
+                (shopViewBindingSource.Current as DataRowView)["Shop_y_coord"] = ShopLocation.GetY();
+                shopViewBindingSource.EndEdit();
+                shopViewTableAdapter.Update(milkWorkDataSet.ShopView);
+                shopViewTableAdapter.Fill(milkWorkDataSet.ShopView);
+                shopInfoGroupBox.Enabled = false;
+
+                ShopLocation = null;
+            });
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -123,6 +127,7 @@ namespace Route
 
             ClearPushPins();
             ShopLocation = null;
+
             double? x = (double?)(shopViewBindingSource.Current as DataRowView)["Shop_x_coord"];
             double? y = (double?)(shopViewBindingSource.Current as DataRowView)["Shop_y_coord"];
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Route.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,27 +37,30 @@ namespace Route
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            if (carViewBindingSource.Count != 0)
+            BSHandler.Handle(this, carViewBindingSource, () =>
             {
                 carGroupBox.Enabled = true;
-            }
+            });
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (carViewBindingSource.Count != 0)
+            BSHandler.Handle(this, carViewBindingSource, () =>
             {
                 carViewBindingSource.RemoveCurrent();
                 carViewTableAdapter.Update(milkWorkDataSet.CarView);
-            }
+            });
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            carViewBindingSource.EndEdit();
-            carViewTableAdapter.Update(milkWorkDataSet.CarView);
-            carViewTableAdapter.Fill(milkWorkDataSet.CarView);
-            carGroupBox.Enabled = false;
+            AddingHandler.Handle(this, () =>
+            {
+                carViewBindingSource.EndEdit();
+                carViewTableAdapter.Update(milkWorkDataSet.CarView);
+                carViewTableAdapter.Fill(milkWorkDataSet.CarView);
+                carGroupBox.Enabled = false;
+            });
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

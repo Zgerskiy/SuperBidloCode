@@ -72,6 +72,8 @@
     <Compile Include="Forms\ShopRequestsForm.Designer.cs">
       <DependentUpon>ShopRequestsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AddingHandler.cs" />
+    <Compile Include="Helpers\BSHandler.cs" />
     <Compile Include="Helpers\ConnectionHandler.cs" />
     <Compile Include="Helpers\InputForm.cs">
       <SubType>Form</SubType>

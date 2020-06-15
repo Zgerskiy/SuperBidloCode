@@ -122,5 +122,10 @@ namespace Route.Forms
 
             shopRequestStructGroupBox.Enabled = false;
         }
+
+        private void shopRequestsDataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

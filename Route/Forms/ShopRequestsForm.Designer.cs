@@ -312,6 +312,7 @@
             this.shopRequestStructGroupBox.Controls.Add(this.id_productComboBox);
             this.shopRequestStructGroupBox.Controls.Add(product_countLabel);
             this.shopRequestStructGroupBox.Controls.Add(this.product_countTextBox);
+            this.shopRequestStructGroupBox.Enabled = false;
             this.shopRequestStructGroupBox.Location = new System.Drawing.Point(509, 279);
             this.shopRequestStructGroupBox.Name = "shopRequestStructGroupBox";
             this.shopRequestStructGroupBox.Size = new System.Drawing.Size(448, 169);

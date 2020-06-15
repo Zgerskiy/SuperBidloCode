@@ -1,5 +1,6 @@
 ﻿using DevExpress.Map.Native;
 using DevExpress.XtraMap;
+using Route.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,27 +45,31 @@ namespace Route
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            if (routeBindingSource.Count != 0)
+            BSHandler.Handle(this, routeBindingSource, () =>
             {
                 routeGroupBox.Enabled = true;
-            }
+            });
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (routeBindingSource.Count !=0 )
+            BSHandler.Handle(this, routeBindingSource, () =>
             {
                 routeBindingSource.RemoveCurrent();
                 routeTableAdapter.Update(milkWorkDataSet.Route);
-            }
+            });
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            routeBindingSource.EndEdit();
-            routeTableAdapter.Update(milkWorkDataSet.Route);
-            routeGroupBox.Enabled = false;
-            routeStructGroupBox.Enabled = true;
+            AddingHandler.Handle(this, () =>
+            {
+                (routeBindingSource.Current as DataRowView)["Route_date"] = route_dateDateTimePicker.Value;
+                routeBindingSource.EndEdit();
+                routeTableAdapter.Update(milkWorkDataSet.Route);
+                routeGroupBox.Enabled = false;
+                routeStructGroupBox.Enabled = true;
+            });
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -93,6 +98,9 @@ namespace Route
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            if (routeBindingSource.Current == null || routeBindingSource.Count == 0)
+                return;
+
             int? idRoute = (int?)(routeBindingSource.Current as DataRowView)["Id_route"];
 
             if (idRoute.HasValue)
